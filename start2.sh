@@ -1,13 +1,11 @@
 #!/bin/bash
-
-interval= 3
+interval=3
 bootwait=10
 game=minecraft_server.1.12.1
-
 while true
 do
-a = `ps -ef | grep $game | grep -v grep | wc -l`
-if [ $a = 1 ]; then
+a=`ps -ef | grep $game | grep -v grep | wc -l`
+if [ $a = 2 ]; then
 echo "問題なし"
 else
 echo "停止している"
@@ -15,8 +13,8 @@ flag=true
 while $flag
 do
 echo "再起動なう"
-b = `ps -ef | grep $game | grep -v grep | wc -l`
-if [ $b = 1 ]; then
+b=`ps -ef | grep $game | grep -v grep | wc -l`
+if [ $b = 2 ]; then
   flag=false
 fi
 sleep $bootwait
@@ -25,9 +23,6 @@ done
 fi
 sleep $interval
 done
-
-
-
 
 done
 
