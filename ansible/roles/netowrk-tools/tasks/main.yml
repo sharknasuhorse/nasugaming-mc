@@ -1,0 +1,10 @@
+---
+- name : iftop
+  yum :
+    name: "iftop"
+	  state: latest
+
+- name : bmon
+  yum :
+    name: "bmon"
+	  state: latest

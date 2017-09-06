@@ -9,6 +9,8 @@
     - apache2
     - go
     - java
+    - bind-utils
+    - network-tools
 #    - mariadb-server
 #    - php
 #    - rails
