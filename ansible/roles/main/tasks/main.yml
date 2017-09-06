@@ -1,0 +1,67 @@
+---
+
+- name : yum update
+  yum : 
+    name: "*" 
+    state: latest
+
+- name : install epel
+  yum : 
+    name: "epel-release" 
+    state: present
+
+- name: install wget
+  yum:
+    name: "wget" 
+    state: present
+
+
+- name: bash-completion
+  copy: 
+    src: systemctl-bash-completion.sh
+    dest: /etc/bash_completion.d
+
+- name: make directory
+  file: 
+    path: /home/vagrant/.vim 
+    state: directory
+
+- name: add vim rc 
+  copy: 
+    src: vimrc
+    dest: /home/vagrant/.vim
+
+
+- name: Get SELinux Mode
+  shell: getenforce
+  register: selinux_status
+  changed_when: False
+
+- name: debug
+  debug: var=selinux_status
+
+
+
+
+
+
+
+- name: Install libselinux-python
+  yum: name=libselinux-python state=present
+  when: selinux_status.stdout == 'Enforcing'
+
+- name: Disable SElinux
+  selinux:
+   state: disabled
+  when: selinux_status.stdout == 'Enforcing'
+
+- name: Reboot System
+  shell: "sleep 2 && reboot"
+  async: 1
+  poll: 0
+  when: selinux_status.stdout == 'Enforcing'
+
+- name: System boot up wait...
+  local_action: wait_for host={{ansible_ssh_host}} port={{ansible_ssh_port}} delay=30
+  become: false
+  when: selinux_status.stdout == 'Enforcing'
