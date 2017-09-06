@@ -2,7 +2,7 @@
 - name : install java
   yum :
     name: "screen"
-	  state: latest
+    state: latest
 
 
 

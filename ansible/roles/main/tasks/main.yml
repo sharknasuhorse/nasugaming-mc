@@ -109,7 +109,7 @@
 
 - name: http
   firewalld:
-    port: 80/tcpa
+    port: 80/tcp
     permanent: true
     state: enabled
     immediate: true
