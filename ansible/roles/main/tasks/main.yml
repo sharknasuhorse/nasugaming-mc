@@ -1,33 +1,31 @@
 ---
-
 - name : yum update
-  yum : 
-    name: "*" 
+  yum :
+    name: "*"
     state: latest
 
 - name : install epel
-  yum : 
-    name: "epel-release" 
+  yum :
+    name: "epel-release"
     state: present
 
 - name: install wget
   yum:
-    name: "wget" 
+    name: "wget"
     state: present
 
-
 - name: bash-completion
-  copy: 
+  copy:
     src: systemctl-bash-completion.sh
     dest: /etc/bash_completion.d
 
 - name: make directory
-  file: 
-    path: /home/vagrant/.vim 
+  file:
+    path: /home/vagrant/.vim
     state: directory
 
-- name: add vim rc 
-  copy: 
+- name: add vim rc
+  copy:
     src: vimrc
     dest: /home/vagrant/.vim
 
@@ -39,12 +37,6 @@
 
 - name: debug
   debug: var=selinux_status
-
-
-
-
-
-
 
 - name: Install libselinux-python
   yum: name=libselinux-python state=present
@@ -65,3 +57,66 @@
   local_action: wait_for host={{ansible_ssh_host}} port={{ansible_ssh_port}} delay=30
   become: false
   when: selinux_status.stdout == 'Enforcing'
+
+- name: add firewall
+  firewalld:
+    port: 1701/udp
+    permanent: true
+    state: enabled
+    immediate: true
+
+- name: ts3-query
+  firewalld:
+    port: 10011/tcp
+    permanent: true
+    state: enabled
+    immediate: true
+
+- name: ts3-file
+  firewalld:
+    port: 30033/tcp
+    permanent: true
+    state: enabled
+    immediate: true
+
+- name: add firewall
+  firewalld:
+    port: 4500/udp
+    permanent: true
+    state: enabled
+    immediate: true
+
+- name: add firewall
+  firewalld:
+    port: 25565/tcp
+    permanent: true
+    state: enabled
+    immediate: true
+
+- name: ts3-voice
+  firewalld:
+    port: 9987/udp
+    permanent: true
+    state: enabled
+    immediate: true
+
+- name: add firewall
+  firewalld:
+    port: 2008/tcp
+    permanent: true
+    state: enabled
+    immediate: true
+
+- name: http
+  firewalld:
+    port: 80/tcpa
+    permanent: true
+    state: enabled
+    immediate: true
+
+- name: add firewall
+  firewalld:
+    port: 2010/tcp
+    permanent: true
+    state: enabled
+    immediate: true
