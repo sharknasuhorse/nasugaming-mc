@@ -4,7 +4,12 @@
     name: "iftop"
     state: latest
 
-- name : bmon
-  yum :
+- name: install bmon
+  yum:
     name: "bmon"
+    state: latest
+
+- name: install denyhosts
+  yum:
+    name: "denyhosts"
     state: latest

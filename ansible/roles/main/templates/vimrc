@@ -16,10 +16,6 @@ set backspace=2		" more powerful backspacing
 "colorscheme molokai
 syntax on
 
-
-"シンタックスハイライト有効
-":syntax on
-
 "新しい行のインデントを現在行と同じにする
 set autoindent
 "バックアップファイルを作るディレクトリ
@@ -75,3 +71,6 @@ highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
 au BufNewFile,BufRead * match ZenkakuSpace /　/
 set laststatus=1   " ステータス行を常に表示
 set ruler
+
+colorscheme molokai
+set t_Co=256

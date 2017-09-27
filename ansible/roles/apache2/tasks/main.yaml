@@ -1,18 +1,18 @@
 ---
 
 - name: install httpd
-  yum : 
-    name: "httpd" 
+  yum :
+    name: "httpd"
     state: latest
 
 - name: add security.conf
-  copy: 
-    src: templates/security.conf 
+  copy:
+    src: templates/security.conf
     dest: /etc/httpd/conf.d
 
 - name: start httpd
-  service: 
-    name: httpd 
-    enabled: yes 
+  service:
+    name: httpd
+    enabled: yes
     state: started
 
